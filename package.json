@@ -24,8 +24,8 @@
   "scripts": {
     "start": "serve -s build",
     "dev": "craco start",
-    "build": "react script build",
-    "test": "craco test"
+    "build": "react-scripts build",
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": [
