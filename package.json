@@ -24,7 +24,7 @@
   "scripts": {
     "start": "serve -s build",
     "dev": "craco start",
-    "build": "craco build",
+    "build": "react script build",
     "test": "craco test"
   },
   "eslintConfig": {
