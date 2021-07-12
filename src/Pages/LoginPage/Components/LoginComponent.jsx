@@ -19,21 +19,28 @@ const LoginComponent = (props) => {
         password: e.target.password.value,
       };
 
-      const response = await Login(data);
+      try {
+        const response = await Login(data);
 
-      if (response && response.isSuccess) {
-        toast.success("Login Success!", {
-          position: toast.POSITION.BOTTOM_RIGHT,
-          autoClose: 3000,
-        });
-        const token = response.data.token;
-        localStorage.setItem("auth_token", token);
-        setAuthToken(token);
-        const user = jwtDecode(token);
-        setUser(user);
-        history.push("/");
-      } else {
-        toast.error(`${response.data.toString()}!`, {
+        if (response && response.isSuccess) {
+          toast.success("Login Success!", {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 3000,
+          });
+          const token = response.data.token;
+          localStorage.setItem("auth_token", token);
+          setAuthToken(token);
+          const user = jwtDecode(token);
+          setUser(user);
+          history.push("/");
+        } else {
+          toast.error(`${response.data.toString()}!`, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 3000,
+          });
+        }
+      } catch (error) {
+        toast.error(`Network Error!`, {
           position: toast.POSITION.BOTTOM_RIGHT,
           autoClose: 3000,
         });

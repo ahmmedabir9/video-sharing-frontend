@@ -1049,3 +1049,34 @@ body {
     display: none !important;
   }
 }
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+::-webkit-scrollbar:vertical {
+  width: 4px;
+}
+::-webkit-scrollbar:horizontal {
+  height: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #1f2937;
+  border-radius: 0px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 0px;
+  background-color: #eee;
+}
+
+.sticky-wrapper {
+  position: relative;
+  height: 3rem; /* We need to change this value */
+}
+
+.sticky .sticky-inner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
