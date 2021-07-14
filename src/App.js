@@ -8,6 +8,8 @@ import jwtDecode from "jwt-decode";
 import LoginPage from "./Pages/LoginPage/LoginPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ProfilePage from "./Pages/ProfilePage/ProfilePage";
+import UploadVideoPage from "./Pages/UploadVideoPage/UploadVideoPage";
 
 const App = () => {
   const { setUser, setAuthLoading } = useContext(AuthContext);
@@ -34,6 +36,8 @@ const App = () => {
         <Switch>
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/" component={HomePage} />
+          <Route exact path="/profile" component={ProfilePage} />
+          <Route exact path="/upload-video" component={UploadVideoPage} />
         </Switch>
       </Router>
     </div>

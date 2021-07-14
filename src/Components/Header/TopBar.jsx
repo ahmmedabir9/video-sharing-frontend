@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
+import config from "../../service/api/config";
 const TopBar = ({ active }) => {
   const { user, setUser, authLoading } = useContext(AuthContext);
   const [openUserMenu, setOpenUserMenu] = useState(false);
@@ -29,7 +30,10 @@ const TopBar = ({ active }) => {
   }, []);
 
   return (
-    <div className={`sticky-wrapper${isSticky ? " sticky" : ""}`} ref={ref}>
+    <div
+      className={`sticky-wrapper${isSticky ? " sticky" : ""} z-50`}
+      ref={ref}
+    >
       <nav className="bg-gray-800 sticky-inner">
         <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
           <div className="relative flex items-center justify-between h-16">
@@ -166,7 +170,7 @@ const TopBar = ({ active }) => {
                     <span className="sr-only">Open user menu</span>
                     <img
                       className="h-8 w-8 rounded-full"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      src={config.serverURL + user?.photo}
                       alt=""
                     />
                   </button>
@@ -176,7 +180,7 @@ const TopBar = ({ active }) => {
                   <div
                     onClick={() => setOpenUserMenu(!openUserMenu)}
                     onBlur={() => setOpenUserMenu(false)}
-                    className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50"
                   >
                     <Link
                       to="/profile"
@@ -209,7 +213,7 @@ const TopBar = ({ active }) => {
             onBlur={() => {
               setOpenMobileMenu(false);
             }}
-            className="sm:hidden"
+            className="sm:hidden z-50"
             id="mobile-menu"
           >
             <div className="px-2 pt-2 pb-3 space-y-1">
