@@ -1,13 +1,14 @@
-import { CircularProgress } from "@material-ui/core";
 import React from "react";
-import { loaderStyles } from "./loader.styles";
 
 const ComponentLoader = ({ height }) => {
-  const classes = loaderStyles();
+  let circleCommonClasses = "h-2.5 w-2.5 bg-current   rounded-full";
+
   return (
-    <div className={classes.loading} style={{ minHeight: height }}>
-      <div className={classes.loadingInner}>
-        <CircularProgress color="inherit" size={25} thickness={6} />
+    <div className="flex flex-column justify-center" style={{ height: height }}>
+      <div className="flex">
+        <div className={`${circleCommonClasses} mr-1 animate-bounce`}></div>
+        <div className={`${circleCommonClasses} mr-1 animate-bounce200`}></div>
+        <div className={`${circleCommonClasses} animate-bounce400`}></div>
       </div>
     </div>
   );
