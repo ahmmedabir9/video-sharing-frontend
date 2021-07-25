@@ -13,3 +13,13 @@ export const UploadFile = (file) => postFormData(`upload-file`, file);
 //Video
 export const CreateVideo = (data) => postApi("video/create", data);
 export const GetVideos = (data) => postApi("video", data);
+export const GetVideoDetails = (slug) => getApi(`video/${slug}`);
+export const GetVideoLikesCommentsCount = (id) =>
+  getApi(`video/like-comment-share-count/${id}`);
+export const GetComments = (id) => getApi(`video/get-comments/${id}`);
+export const LikeVideo = (data) => postApi(`video/like`, data);
+export const UnlikeVideo = (data) => postApi(`video/unlike`, data);
+export const CommentVideo = (data) => postApi(`video/comment`, data);
+export const ReplyComment = (data) => postApi(`video/reply`, data);
+export const DeleteComment = (data) => postApi(`video/delete-comment`, data);
+export const ShareVideo = (data) => postApi(`video/share`, data);

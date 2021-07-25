@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import TopBar from "../../Components/Header/TopBar";
 import ComponentLoader from "../../Components/Loader/ComponenLoader";
 import { AuthContext } from "../../Providers/AuthProvider";
@@ -36,7 +36,9 @@ const HomePage = ({ history }) => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4">
               {videos.map((video) => (
-                <VideoCard video={video} />
+                <Link to={`video/${video.slug}`}>
+                  <VideoCard video={video} />
+                </Link>
               ))}
             </div>
           )}
