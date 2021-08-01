@@ -10,6 +10,7 @@ import {
   GetVideoLikesCommentsCount,
   LikeVideo,
 } from "../../service/service";
+import ShareModal from "./Components/ShareModal";
 
 const VideoPage = (props) => {
   const { match } = props;
@@ -19,6 +20,7 @@ const VideoPage = (props) => {
   const [countData, setCountData] = useState({});
   const [comments, setComments] = useState([]);
   const [savingComments, setSavingComments] = useState(false);
+  const [showShare, setShowShare] = useState(false);
 
   const getData = async () => {
     const response = await GetVideoDetails(match.params.slug);
@@ -161,7 +163,11 @@ const VideoPage = (props) => {
                         </span>
                       </a>
 
-                      <a href="#" className={`mx-2 flex`}>
+                      <a
+                        href="#"
+                        className={`mx-2 flex`}
+                        onClick={() => setShowShare(true)}
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           class="h-5 w-5"
@@ -170,9 +176,6 @@ const VideoPage = (props) => {
                         >
                           <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
                         </svg>
-                        <span className="font-bold">
-                          {countData?.shares ? countData?.shares : 0}
-                        </span>
                       </a>
                     </div>
                   </div>
@@ -236,6 +239,13 @@ const VideoPage = (props) => {
           )}
         </div>
       </div>
+      {showShare && (
+        <ShareModal
+          showShare={showShare}
+          setShowShare={setShowShare}
+          video={videoData}
+        />
+      )}
     </div>
   );
 };
