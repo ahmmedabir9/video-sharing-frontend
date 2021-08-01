@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Redirect } from "react-router-dom";
 import TopBar from "../../Components/Header/TopBar";
 import ComponentLoader from "../../Components/Loader/ComponenLoader";
 import { AuthContext } from "../../Providers/AuthProvider";
@@ -15,7 +16,7 @@ import ShareModal from "./Components/ShareModal";
 const VideoPage = (props) => {
   const { match } = props;
   const [loading, setLoading] = useState(true);
-  const { user } = useContext(AuthContext);
+  const { user, authLoading } = useContext(AuthContext);
   const [videoData, setVideoData] = useState(null);
   const [countData, setCountData] = useState({});
   const [comments, setComments] = useState([]);
@@ -92,6 +93,9 @@ const VideoPage = (props) => {
       getCountData();
     }
   }, [videoData]);
+
+  if (!authLoading && !user)
+    return <Redirect to={`/login?redirect=${window.location.pathname}`} />;
 
   return (
     <div>

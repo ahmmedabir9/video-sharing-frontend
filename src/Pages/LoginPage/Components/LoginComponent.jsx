@@ -4,11 +4,13 @@ import { toast } from "react-toastify";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import { Login } from "../../../service/service";
 import setAuthToken from "../../../service/setAuthToken";
+import queryString from "query-string";
 
 const LoginComponent = (props) => {
   const { setUser } = useContext(AuthContext);
-  const { history } = props;
+  const { history, location } = props;
   const [loading, setLoading] = useState(false);
+  const { redirect } = queryString.parse(location.search);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -32,7 +34,7 @@ const LoginComponent = (props) => {
           setAuthToken(token);
           const user = jwtDecode(token);
           setUser(user);
-          history.push("/");
+          history.push(redirect ? redirect : "/");
         } else {
           toast.error(`${response.data.toString()}!`, {
             position: toast.POSITION.BOTTOM_RIGHT,

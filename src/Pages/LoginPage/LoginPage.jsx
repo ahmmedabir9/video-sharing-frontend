@@ -4,7 +4,7 @@ import { AuthContext } from "../../Providers/AuthProvider";
 import LoginComponent from "./Components/LoginComponent";
 import RegisterComponent from "./Components/RegisterComponent";
 
-const LoginPage = ({ history }) => {
+const LoginPage = ({ history, location }) => {
   const { user, authLoading } = useContext(AuthContext);
   const [showRegister, setShowRegister] = useState(false);
 
@@ -28,7 +28,7 @@ const LoginPage = ({ history }) => {
         {showRegister ? (
           <RegisterComponent toogleRegister={toogleRegister} />
         ) : (
-          <LoginComponent history={history} />
+          <LoginComponent history={history} location={location} />
         )}
 
         <p>
