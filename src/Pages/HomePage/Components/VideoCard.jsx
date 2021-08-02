@@ -7,12 +7,12 @@ const VideoCard = ({ video }) => {
       <div
         className="w-full h-thumb bg-cover overflow-hidden"
         style={{
-          backgroundImage: `url(${config.serverURL + video?.thumbnail})`,
+          backgroundImage: `url(${config.fileServer + video?.thumbnail})`,
         }}
       >
         {/* <img
           className="w-full bg-cover"
-          src={config.serverURL + video?.thumbnail}
+          src={config.fileServer + video?.thumbnail}
           alt={video.title}
         /> */}
       </div>
@@ -20,7 +20,7 @@ const VideoCard = ({ video }) => {
         <div className="w-full flex justify-between ">
           <div className="flex">
             <img
-              src={config.serverURL + video?.user?.photo}
+              src={config.fileServer + video?.user?.photo}
               alt="profilepic"
               className="card-avatar rounded-full"
             />

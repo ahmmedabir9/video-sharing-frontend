@@ -170,7 +170,7 @@ const TopBar = ({ active }) => {
                     <span className="sr-only">Open user menu</span>
                     <img
                       className="h-8 w-8 rounded-full"
-                      src={config.serverURL + user?.photo}
+                      src={config.fileServer + user?.photo}
                       alt=""
                     />
                   </button>

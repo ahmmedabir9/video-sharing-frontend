@@ -1,4 +1,4 @@
-import { getApi, postApi, postFormData, putApi } from "./api/index";
+import { getApi, postApi, postFormData, postVideo, putApi } from "./api/index";
 
 //User
 export const Registration = (data) => postApi("auth/register", data);
@@ -8,8 +8,9 @@ export const UpdateuserProfile = (userID, data) =>
   putApi(`user/update/${userID}`, data);
 
 //file Upload
-export const UploadFile = (file, setUploadPercentage) =>
-  postFormData(`upload-file`, file, setUploadPercentage);
+export const UploadFile = (file) => postFormData(`upload-file`, file);
+export const UploadVideo = (file, setUploadPercentage) =>
+  postVideo(`upload-file`, file, setUploadPercentage);
 
 //Video
 export const CreateVideo = (data) => postApi("video/create", data);

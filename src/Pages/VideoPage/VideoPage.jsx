@@ -109,7 +109,7 @@ const VideoPage = (props) => {
               <div className="w-full lg:w-8/12 px-2">
                 <video
                   className="w-full"
-                  src={`${config.serverURL}${videoData?.video}`}
+                  src={`${config.fileServer}${videoData?.video}`}
                   controls
                 ></video>
 
@@ -119,7 +119,7 @@ const VideoPage = (props) => {
                   </span>
                   <div className="flex mt-2 border-b pb-2 border-gray-400">
                     <img
-                      src={config.serverURL + videoData?.user?.photo}
+                      src={config.fileServer + videoData?.user?.photo}
                       alt="profilepic"
                       className="h-10 w-10 rounded-full"
                     />
@@ -196,7 +196,7 @@ const VideoPage = (props) => {
                   {comments.map((comment) => (
                     <div className="flex mb-3">
                       <img
-                        src={config.serverURL + comment?.user?.photo}
+                        src={config.fileServer + comment?.user?.photo}
                         alt="profilepic"
                         className="h-10 w-10 rounded-full"
                       />

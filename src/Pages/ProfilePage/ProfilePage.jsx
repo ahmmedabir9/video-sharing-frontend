@@ -27,7 +27,7 @@ const ProfilePage = () => {
       const response = await UploadFile(files[0]);
       console.log(response);
       if (response && response.isSuccess) {
-        setPhoto(response.data.fileName);
+        setPhoto(response.data);
       }
     } catch (err) {
       if (err.response.status === 500) {
@@ -114,7 +114,7 @@ const ProfilePage = () => {
                   <div className="relative">
                     <img
                       alt="User"
-                      src={config.serverURL + photo}
+                      src={config.fileServer + photo}
                       className="shadow-xl rounded-full h-auto align-middle border-none"
                       style={{ maxWidth: "150px" }}
                     />

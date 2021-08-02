@@ -6,7 +6,7 @@ import TopBar from "../../Components/Header/TopBar";
 import ProgressBar from "../../Components/ProgressBar";
 import { AuthContext } from "../../Providers/AuthProvider";
 import config from "../../service/api/config";
-import { CreateVideo, UploadFile } from "../../service/service";
+import { CreateVideo, UploadFile, UploadVideo } from "../../service/service";
 
 const UploadVideoPage = ({ history }) => {
   const { user, authLoading } = useContext(AuthContext);
@@ -23,10 +23,10 @@ const UploadVideoPage = ({ history }) => {
     setUploadingVideo(true);
     const files = e.target.files;
     try {
-      const response = await UploadFile(files[0], setUploadPercentage);
+      const response = await UploadVideo(files[0], setUploadPercentage);
       console.log(response);
       if (response && response.isSuccess) {
-        setVideo(response.data.fileName);
+        setVideo(response.data);
       }
     } catch (err) {
       if (err.response.status === 500) {
@@ -46,7 +46,7 @@ const UploadVideoPage = ({ history }) => {
       const response = await UploadFile(files[0]);
       console.log(response);
       if (response && response.isSuccess) {
-        setThumnail(response.data.fileName);
+        setThumnail(response.data);
       }
     } catch (err) {
       if (err.response.status === 500) {
@@ -115,7 +115,7 @@ const UploadVideoPage = ({ history }) => {
                   {video && (
                     <video
                       style={{ width: "100%" }}
-                      src={`${config.serverURL}${video}`}
+                      src={`${config.fileServer}${video}`}
                       controls
                     ></video>
                   )}
@@ -179,7 +179,7 @@ const UploadVideoPage = ({ history }) => {
                     {thumbnail && (
                       <img
                         alt="User"
-                        src={config.serverURL + thumbnail}
+                        src={config.fileServer + thumbnail}
                         className="w-full shadow-xl h-auto align-middle border-none mb-2"
                       />
                     )}

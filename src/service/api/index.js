@@ -56,7 +56,7 @@ export const putApi = async (action, data) => {
   }
 };
 
-export const postFormData = async (action, file, setUploadPercentage) => {
+export const postVideo = async (action, file, setUploadPercentage) => {
   try {
     setAuthToken(localStorage.getItem("auth_token"));
     let formData = new FormData();
@@ -70,12 +70,46 @@ export const postFormData = async (action, file, setUploadPercentage) => {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-        onUploadProgress: (ProgressEvent) => {
-          setUploadPercentage(
-            parseInt(
-              Math.round((ProgressEvent.loaded * 100) / ProgressEvent.total)
-            )
-          );
+        onUploadProgress: setUploadPercentage
+          ? (ProgressEvent) => {
+              setUploadPercentage(
+                parseInt(
+                  Math.round((ProgressEvent.loaded * 100) / ProgressEvent.total)
+                )
+              );
+            }
+          : null,
+      }
+    );
+    console.log(response);
+    return {
+      data: response.data.data,
+      isSuccess: response.data.status,
+      status: response.status,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      data: error.response?.data?.message,
+      isSuccess: error.response?.data?.status,
+      status: error.response?.status,
+    };
+  }
+};
+
+export const postFormData = async (action, file) => {
+  try {
+    setAuthToken(localStorage.getItem("auth_token"));
+    let formData = new FormData();
+    formData.append("image", file);
+    console.log(file);
+    console.log(formData);
+    const response = await Axios.post(
+      `${config.serverURL}${action}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
         },
       }
     );
