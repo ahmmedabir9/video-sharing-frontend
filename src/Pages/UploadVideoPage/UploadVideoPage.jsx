@@ -1,7 +1,9 @@
 import React, { useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
+
 import TopBar from "../../Components/Header/TopBar";
+import ProgressBar from "../../Components/ProgressBar";
 import { AuthContext } from "../../Providers/AuthProvider";
 import config from "../../service/api/config";
 import { CreateVideo, UploadFile } from "../../service/service";
@@ -13,6 +15,7 @@ const UploadVideoPage = ({ history }) => {
   const [saving, setSaving] = useState(false);
   const [uploadingVideo, setUploadingVideo] = useState(false);
   const [uploadingThumb, setUploadingThumb] = useState(false);
+  const [uploadPercentage, setUploadPercentage] = useState(0);
 
   if (!authLoading && !user) return <Redirect to="/login" />;
 
@@ -20,7 +23,7 @@ const UploadVideoPage = ({ history }) => {
     setUploadingVideo(true);
     const files = e.target.files;
     try {
-      const response = await UploadFile(files[0]);
+      const response = await UploadFile(files[0], setUploadPercentage);
       console.log(response);
       if (response && response.isSuccess) {
         setVideo(response.data.fileName);
@@ -33,6 +36,7 @@ const UploadVideoPage = ({ history }) => {
       }
     }
     setUploadingVideo(false);
+    setUploadPercentage(0);
   };
 
   const handleUpload = async (e) => {
@@ -117,7 +121,7 @@ const UploadVideoPage = ({ history }) => {
                   )}
                   <div className="py-2">
                     {uploadingVideo ? (
-                      "Uploading, Please Wait..."
+                      <ProgressBar progressPercentage={uploadPercentage} />
                     ) : (
                       <div className="custom-file mb-4">
                         <input

@@ -56,7 +56,7 @@ export const putApi = async (action, data) => {
   }
 };
 
-export const postFormData = async (action, file) => {
+export const postFormData = async (action, file, setUploadPercentage) => {
   try {
     setAuthToken(localStorage.getItem("auth_token"));
     let formData = new FormData();
@@ -69,6 +69,13 @@ export const postFormData = async (action, file) => {
       {
         headers: {
           "Content-Type": "multipart/form-data",
+        },
+        onUploadProgress: (ProgressEvent) => {
+          setUploadPercentage(
+            parseInt(
+              Math.round((ProgressEvent.loaded * 100) / ProgressEvent.total)
+            )
+          );
         },
       }
     );

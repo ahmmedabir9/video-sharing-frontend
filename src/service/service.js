@@ -8,7 +8,8 @@ export const UpdateuserProfile = (userID, data) =>
   putApi(`user/update/${userID}`, data);
 
 //file Upload
-export const UploadFile = (file) => postFormData(`upload-file`, file);
+export const UploadFile = (file, setUploadPercentage) =>
+  postFormData(`upload-file`, file, setUploadPercentage);
 
 //Video
 export const CreateVideo = (data) => postApi("video/create", data);
