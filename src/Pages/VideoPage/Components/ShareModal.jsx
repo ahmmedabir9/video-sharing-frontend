@@ -1,6 +1,17 @@
 import React from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  WhatsappIcon,
+  WhatsappShareButton,
+  InstapaperShareButton,
+  TwitterShareButton,
+  TwitterIcon,
+  EmailShareButton,
+  EmailIcon,
+} from "react-share";
 
 const ShareModal = ({ showShare, setShowShare, video }) => {
   const onCopyText = () => {
@@ -40,12 +51,44 @@ const ShareModal = ({ showShare, setShowShare, video }) => {
                 >
                   {video?.title}
                 </h3>
-                <div class="mt-3 rounded-xl overflow-hidden bg-gray-800 p-3">
-                  <pre class="language-shell">
-                    <code class="language-shell text-gray-50">
-                      {window.location.href}
-                    </code>
-                  </pre>
+                <h3
+                  class="text-md leading-6 font-sm text-gray-600"
+                  id="modal-title"
+                >
+                  Share on Social Media or Copy the Link
+                </h3>
+                <div class="overflow-hidden p-3">
+                  <FacebookShareButton
+                    url={window.location.href}
+                    quote={`Watch The Latest Video from my Site`}
+                    className="m-1"
+                  >
+                    <FacebookIcon size={35} round={true}></FacebookIcon>
+                  </FacebookShareButton>
+                  <WhatsappShareButton
+                    url={window.location.href}
+                    quote={`Watch The Latest Video from my Site`}
+                    className="m-1"
+                  >
+                    <WhatsappIcon size={35} round={true}></WhatsappIcon>
+                  </WhatsappShareButton>
+                  <EmailShareButton
+                    url={window.location.href}
+                    quote={`Watch The Latest Video from my Site`}
+                    className="m-1"
+                  >
+                    <EmailIcon size={35} round={true}></EmailIcon>
+                  </EmailShareButton>
+                  <TwitterShareButton
+                    url={window.location.href}
+                    quote={`Watch The Latest Video from my Site`}
+                    className="m-1"
+                  >
+                    <TwitterIcon size={35} round={true}></TwitterIcon>
+                  </TwitterShareButton>
+                </div>
+                <div class="rounded-xl overflow-hidden bg-gray-800 p-3">
+                  <code class="text-gray-50">{window.location.href}</code>
                 </div>
               </div>
             </div>
