@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import config from "../../service/api/config";
 const TopBar = ({ active }) => {
   const { user, setUser, authLoading } = useContext(AuthContext);
   const [openUserMenu, setOpenUserMenu] = useState(false);
   const [openMobileMenu, setOpenMobileMenu] = useState(false);
+  const history = useHistory();
 
   const handleSignOut = async () => {
     console.log("loged out");
@@ -28,6 +29,16 @@ const TopBar = ({ active }) => {
       window.removeEventListener("scroll", () => handleScroll);
     };
   }, []);
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+
+    if (e.target.searchKey?.value) {
+      history.push(`/?searchKey=${e.target.searchKey?.value}`);
+    } else {
+      history.push(`/`);
+    }
+  };
 
   return (
     <div
@@ -131,7 +142,10 @@ const TopBar = ({ active }) => {
               </div>
             </div>
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              <div class="relative flex w-full sm:w-7/12 md:w-8/12 lg:w-11/12 px-4 flex-wrap items-stretch lg:ml-auto">
+              <form
+                onSubmit={handleSearch}
+                class="relative flex w-full sm:w-7/12 md:w-8/12 lg:w-11/12 px-4 flex-wrap items-stretch lg:ml-auto"
+              >
                 <div class="flex">
                   <span class="font-normal leading-snug flex text-center white-space-no-wrap border border-solid border-blueGray-600 rounded-full text-sm bg-white items-center rounded-r-none pl-2 py-1 text-blueGray-800 border-r-0 placeholder-blueGray-300">
                     <svg
@@ -153,9 +167,10 @@ const TopBar = ({ active }) => {
                 <input
                   type="text"
                   class="px-2 py-1 h-8 border border-solid  border-blueGray-600 rounded-full text-sm leading-snug text-blueGray-700 bg-white shadow-none outline-none focus:outline-none w-full font-normal rounded-l-none flex-1 border-l-0 placeholder-blueGray-300"
-                  placeholder="Search blueGray"
+                  placeholder="Search Videos"
+                  name="searchKey"
                 />
-              </div>
+              </form>
 
               <div className="ml-3 relative">
                 <div>
