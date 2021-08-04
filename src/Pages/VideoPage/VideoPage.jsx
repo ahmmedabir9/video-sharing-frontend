@@ -11,10 +11,11 @@ import {
   GetVideoLikesCommentsCount,
   LikeVideo,
 } from "../../service/service";
+import ConfirmDeleteModal from "./Components/ConfirmDeleteModal";
 import ShareModal from "./Components/ShareModal";
 
 const VideoPage = (props) => {
-  const { match } = props;
+  const { match, history } = props;
   const [loading, setLoading] = useState(true);
   const { user, authLoading } = useContext(AuthContext);
   const [videoData, setVideoData] = useState(null);
@@ -22,6 +23,7 @@ const VideoPage = (props) => {
   const [comments, setComments] = useState([]);
   const [savingComments, setSavingComments] = useState(false);
   const [showShare, setShowShare] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
 
   const getData = async () => {
     const response = await GetVideoDetails(match.params.slug);
@@ -95,7 +97,7 @@ const VideoPage = (props) => {
   }, [videoData]);
 
   if (!authLoading && !user)
-    return <Redirect to={`/login?redirect=${window.location.pathname}`} />;
+    return <Redirect to={`/login?redirect=${window.history.pathname}`} />;
 
   return (
     <div>
@@ -114,9 +116,30 @@ const VideoPage = (props) => {
                 ></video>
 
                 <div className="mt-3">
-                  <span className="font-bold text-lg block">
-                    {videoData?.title}
-                  </span>
+                  <div className="flex">
+                    <span className="font-bold text-lg block flex-grow-1">
+                      {videoData?.title}
+                    </span>
+                    {user && videoData.user?._id === user._id && (
+                      <a
+                        className={`mx-2 flex cursor-pointer`}
+                        onClick={() => setShowDelete(true)}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="h-5 w-5"
+                          viewBox="0 0 20 20"
+                          fill="#ff0000"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                      </a>
+                    )}
+                  </div>
                   <div className="flex mt-2 border-b pb-2 border-gray-400">
                     <img
                       src={config.fileServer + videoData?.user?.photo}
@@ -247,6 +270,14 @@ const VideoPage = (props) => {
         <ShareModal
           showShare={showShare}
           setShowShare={setShowShare}
+          video={videoData}
+        />
+      )}
+      {showDelete && (
+        <ConfirmDeleteModal
+          showDelete={showDelete}
+          history={history}
+          setShowDelete={setShowDelete}
           video={videoData}
         />
       )}

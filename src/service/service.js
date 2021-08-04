@@ -15,6 +15,7 @@ export const UploadVideo = (file, setUploadPercentage) =>
 
 //Video
 export const CreateVideo = (data) => postApi("video/create", data);
+export const DeleteVideo = (id) => postApi(`video/delete/${id}`);
 export const GetVideos = (data) => postApi("video", data);
 export const GetVideoDetails = (slug) => getApi(`video/${slug}`);
 export const GetVideoLikesCommentsCount = (id) =>
