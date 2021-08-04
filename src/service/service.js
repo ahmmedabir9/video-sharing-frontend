@@ -3,6 +3,7 @@ import { getApi, postApi, postFormData, postVideo, putApi } from "./api/index";
 //User
 export const Registration = (data) => postApi("auth/register", data);
 export const Login = (data) => postApi("auth/login", data);
+export const ReAuth = (data) => postApi("auth/reauth", data);
 export const GetUserProfile = (userID) => getApi(`user/${userID}`);
 export const UpdateuserProfile = (userID, data) =>
   putApi(`user/update/${userID}`, data);
